@@ -47,5 +47,66 @@ public class Teste implements Serializable {
     @ManyToOne
     @JoinColumn(name = "responsavel_id")
     private Usuario resposavelTecnico;
+
+    public Teste() {
+        this(0, new Coleta(), LocalDateTime.now(), EResultadoTeste.NAO_DETECTADO, new Usuario());
+    }
+
+    public Teste(int id, Coleta coleta, LocalDateTime dataHoraTeste, EResultadoTeste resultado, Usuario resposavelTecnico) {
+        this.id = id;
+        this.coleta = coleta;
+        this.dataHoraTeste = dataHoraTeste;
+        this.resultado = resultado;
+        this.resposavelTecnico = resposavelTecnico;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Coleta getColeta() {
+        return coleta;
+    }
+
+    public void setColeta(Coleta coleta) {
+        this.coleta = coleta;
+    }
+
+    public LocalDateTime getDataHoraTeste() {
+        return dataHoraTeste;
+    }
+
+    public void setDataHoraTeste(LocalDateTime dataHoraTeste) {
+        this.dataHoraTeste = dataHoraTeste;
+    }
+
+    public EResultadoTeste getResultado() {
+        return resultado;
+    }
+
+    public void setResultado(EResultadoTeste resultado) {
+        this.resultado = resultado;
+    }
+
+    public EStatusTeste getStatusTeste() {
+        return statusTeste;
+    }
+
+    public void setStatusTeste(EStatusTeste statusTeste) {
+        this.statusTeste = statusTeste;
+    }
+
+    public Usuario getResposavelTecnico() {
+        return resposavelTecnico;
+    }
+
+    public void setResposavelTecnico(Usuario resposavelTecnico) {
+        this.resposavelTecnico = resposavelTecnico;
+    }   
+    
     
 }

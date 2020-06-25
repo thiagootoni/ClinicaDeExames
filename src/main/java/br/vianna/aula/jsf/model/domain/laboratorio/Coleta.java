@@ -10,6 +10,7 @@ import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
 import br.vianna.aula.jsf.model.domain.usuario.Usuario;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -53,6 +54,75 @@ public class Coleta implements Serializable {
     @OneToOne
     @JoinColumn(name = "teste_id")
     private Teste testeResultadoFinal;
+
+    public Coleta() {
+        this(0, new Paciente(), ETipoMaterial.ESCARRO, LocalDateTime.now(), new ArrayList<Teste>(), new Teste());
+    }
+
+    public Coleta(int id, Paciente paciente, ETipoMaterial tipoMaterial, LocalDateTime dataHoraColeta, List<Teste> testes, Teste testeResultadoFinal) {
+        this.id = id;
+        this.paciente = paciente;
+        this.tipoMaterial = tipoMaterial;
+        this.dataHoraColeta = dataHoraColeta;
+        this.testes = testes;
+        this.testeResultadoFinal = testeResultadoFinal;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public ETipoMaterial getTipoMaterial() {
+        return tipoMaterial;
+    }
+
+    public void setTipoMaterial(ETipoMaterial tipoMaterial) {
+        this.tipoMaterial = tipoMaterial;
+    }
+
+    public LocalDateTime getDataHoraColeta() {
+        return dataHoraColeta;
+    }
+
+    public void setDataHoraColeta(LocalDateTime dataHoraColeta) {
+        this.dataHoraColeta = dataHoraColeta;
+    }
+
+    public EStatusColeta getStatusColeta() {
+        return statusColeta;
+    }
+
+    public void setStatusColeta(EStatusColeta statusColeta) {
+        this.statusColeta = statusColeta;
+    }
+
+    public List<Teste> getTestes() {
+        return testes;
+    }
+
+    public void setTestes(List<Teste> testes) {
+        this.testes = testes;
+    }
+
+    public Teste getTesteResultadoFinal() {
+        return testeResultadoFinal;
+    }
+
+    public void setTesteResultadoFinal(Teste testeResultadoFinal) {
+        this.testeResultadoFinal = testeResultadoFinal;
+    }
     
     
 }

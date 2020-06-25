@@ -39,6 +39,58 @@ public class Usuario implements Serializable {
     @Enumerated(EnumType.STRING)
     private EFuncao funcao;
 
+    public Usuario() {
+        this(0, "", "", "", EFuncao.ATENDENTE);
+    }
+
+    public Usuario(int id, String nome, String prontuario, String senha, EFuncao funcao) {
+        this.id = id;
+        this.nome = nome;
+        this.prontuario = prontuario;
+        this.senha = senha;
+        this.funcao = funcao;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getProntuario() {
+        return prontuario;
+    }
+
+    public void setProntuario(String prontuario) {
+        this.prontuario = prontuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public EFuncao getFuncao() {
+        return funcao;
+    }
+
+    public void setFuncao(EFuncao funcao) {
+        this.funcao = funcao;
+    }
+
     
         
 }
