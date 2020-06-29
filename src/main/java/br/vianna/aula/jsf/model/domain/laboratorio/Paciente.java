@@ -51,7 +51,7 @@ public class Paciente implements Serializable {
     private List<Coleta> coletas;
 
     public Paciente() {
-        this(0, "", "", "", LocalDate.parse("01/01/1990"), false, false, false, false, new ArrayList<Coleta>());
+        this.coletas = new ArrayList<>();
     }
 
     public Paciente(int id, String nome, String telefone, String cpf, LocalDate dataNascimento, boolean acimaDeSessentaAnos, boolean temComorbidades, boolean grupoDeRisco, boolean marcadoParaRecoleta, List<Coleta> coletas) {

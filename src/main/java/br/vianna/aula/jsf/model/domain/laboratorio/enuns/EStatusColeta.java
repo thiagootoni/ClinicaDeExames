@@ -10,7 +10,11 @@ package br.vianna.aula.jsf.model.domain.laboratorio.enuns;
  * @author thiago
  */
 public enum EStatusColeta {
-    VALIDA("Válida"), VENCIDA("Vencida");
+    VALIDA("Válida"), 
+    VENCIDA("Vencida"), 
+    EM_ANALISE("Em análise"), 
+    COM_RESULTADO("Com resultado"),
+    INVALIDA("Inválida");
     
     private String descricao;
 

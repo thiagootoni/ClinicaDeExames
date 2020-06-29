@@ -6,6 +6,7 @@
 package br.vianna.aula.jsf.model.domain.laboratorio;
 
 import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EResultadoTeste;
+import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
 import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusTeste;
 import br.vianna.aula.jsf.model.domain.usuario.Usuario;
 import java.io.Serializable;
@@ -49,7 +50,8 @@ public class Teste implements Serializable {
     private Usuario resposavelTecnico;
 
     public Teste() {
-        this(0, new Coleta(), LocalDateTime.now(), EResultadoTeste.NAO_DETECTADO, new Usuario());
+        this.dataHoraTeste = LocalDateTime.now();
+       
     }
 
     public Teste(int id, Coleta coleta, LocalDateTime dataHoraTeste, EResultadoTeste resultado, Usuario resposavelTecnico) {

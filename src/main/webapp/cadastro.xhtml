@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets" template="./template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="container">
+
+        <div>
+            <h3>
+                Olá #{sessao.usuarioSessao.nome}
+            </h3>
+        </div><br/><br/>
+
+        <h:panelGroup rendered="#{cadastro.estadoCadastro()}">
+            <!-- verifica cpf -->
+            <h:form>
+                <div class="form-row">
+                    <h:outputLabel for="buscaCpf"><h3>Busca <h6>cpf</h6></h3></h:outputLabel>
+                    <div class="form-group col-md-11">
+                        <h:inputText class="form-control" id="buscaCpf" required="true" value="#{cadastro.cpfBusca}" required="true" requiredMessage="Infore o CPF do Paciente!"></h:inputText>
+                    </div>
+                    <div class="form-group col-md-1">
+                        <h:commandButton class="btn btn-primary" action="#{cadastro.buscaPaciente()}" value="Buscar" />
+                    </div>
+                </div>
+            </h:form>
+
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{cadastro.estadoCadastro()}">
+            <h3> Cadastro Paciente</h3>
+            <hr/>
+            <h:form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="nome">Nome</h:outputLabel>
+                        <h:inputText class="form-control" id="nome" value="#{cadastro.paciente.nome}" required="true" requiredMessage="Informe o nome"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="cpf">cpf</h:outputLabel>
+                        <h:inputText class="form-control" id="cpf" value="#{cadastro.paciente.cpf}" required="true" requiredMessage="Informe o cpf"/>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="telefone">Telefone</h:outputLabel>
+                        <h:inputText class="form-control" id="telefone" value="#{cadastro.paciente.telefone}" required="true" requiredMessage="Informe o telefone"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="dataNascimento">Data Nascimento</h:outputLabel>
+                        <h:inputText class="form-control" id="dataNascimento" value="#{cadastro.paciente.dataNascimento}" required="true" requiredMessage="Informe a data de nascimento"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:selectOneRadio class="form-check-input" value = "#{cadastro.paciente.temComorbidades}"> 
+                            <f:selectItem class="form-check-label" itemValue = "true" itemLabel = "Sim" /> 
+                            <f:selectItem class="form-check-label" itemValue = "false" itemLabel = "Não" />
+                        </h:selectOneRadio>    
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <h:commandButton rendered="#{cadastro.estadoCadastro()}" class="btn btn-primary" action="#{cadastro.salvarPaciente()}" value="Salvar"></h:commandButton>
+                        </div>
+                        <div class="col-md-2">
+                            <h:commandButton rendered="#{cadastro.estadoEditar()}" class="btn btn-primary" action="#{cadastro.editarPaciente()}" value="Alterar modificações"></h:commandButton>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+
+            <h:form rendered="#{cadastro.estadoColeta()}">
+                <h3> Cadastro Coleta</h3>
+                <hr/>
+                <div class="form-row">
+                    <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="nome">Nome</h:outputLabel>
+                        <h:inputText class="form-control" id="nome" value="#{cadastro.paciente.nome}" required="true" requiredMessage="Informe o nome" readonly=“true”/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="cpf">cpf</h:outputLabel>
+                        <h:inputText class="form-control" id="cpf" value="#{cadastro.paciente.cpf}" required="true" requiredMessage="Informe o cpf" readonly=“true”/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="telefone">Telefone</h:outputLabel>
+                        <h:inputText class="form-control" id="telefone" value="#{cadastro.paciente.telefone}" required="true" requiredMessage="Informe o telefone" readonly=“true”/>
+                    </div>                    
+                </div>
+                    <div class="form-group">
+                        <h:outputLabel for="tempo">Tipo de Material </h:outputLabel>
+                        <h:selectOneMenu id="tipo" value="#{cadastro.coleta.tipoMaterial}" class="form-control" required="true" requiredMessage="Selecione um tipo de mterial coletado">
+                            <f:selectItem itemLabel="Selecione" itemDisabled="true" />
+                            <f:selectItem itemLabel="ASPIRADO_TRAQUEAL" itemValue="Aspirado traqueal" />
+                            <f:selectItem itemLabel="ASPIRADO_BRONQUICO" itemValue="Aspirado brônquico" />
+                            <f:selectItem itemLabel="ASPIRADO_NASO_FARINEO" itemValue="Aspirado naso-faríngeo" />
+                            <f:selectItem itemLabel="SECRECAO_TRAQUEAL" itemValue="Secreção traqueal" />
+                            <f:selectItem itemLabel="ESCARRO" itemValue="Escarro" />
+                            <f:selectItem itemLabel="LAVADO_BRONCOALVELAR" itemValue="Lavado brocoalvelar" />
+                            <f:selectItem itemLabel="SWAB_COMBINADO" itemValue="Swab combinado" />
+                            <f:selectItem itemLabel="SWAB_NASOFARINGE" itemValue="Swab nasorfainge" />
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-11">
+                        <h:commandButton class="btn btn-primary" action="#{cadastro.salvarColeta()}" value="Salvar Coleta"></h:commandButton>
+                    </div>
+                    <div class="col-md-1">
+                        <h:commandButton class="btn btn-primary" action="#{cadastro.navegaPraCadastro()}" value="Salvar alterações cadastrais"></h:commandButton> 
+                    </div>
+                </div>
+
+            </h:form>
+
+        </h:panelGroup>
+
+    </ui:define>
+
+</ui:composition>

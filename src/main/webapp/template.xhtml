@@ -30,9 +30,9 @@
             <div>
                 <h:form>
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item"><h:commandLink class="nav-link" value="Home" action="#{home.callViewHome()}"/></li>
-                        <li class="nav-item"><h:commandLink class="nav-link" value="menu 1" action="#{home.callViewNovaCorrida()}"/></li>
-                        <li class="nav-item"><h:commandLink class="nav-link" value="menu 2" action="#{acao.callViewTenis()}"/></li></ul>
+                        <li class="nav-item"><h:commandLink class="nav-link" value="Home" rendered="#{sessao.ehFuncionarioCadastral()}" action="#{sessao.callViewCadastro()}"/></li>
+                        <li class="nav-item"><h:commandLink class="nav-link" value="Home" rendered="#{sessao.ehFuncionarioTecnico()}" action="#{sessao.callViewLaboratorio()}"/></li>
+                        <li class="nav-item"><h:commandLink class="nav-link" value="menu 2" action=""/></li></ul>
                 </h:form>
             </div>
         </nav>

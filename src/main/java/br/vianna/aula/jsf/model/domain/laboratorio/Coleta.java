@@ -7,7 +7,6 @@ package br.vianna.aula.jsf.model.domain.laboratorio;
 
 import br.vianna.aula.jsf.model.domain.laboratorio.enuns.ETipoMaterial;
 import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
-import br.vianna.aula.jsf.model.domain.usuario.Usuario;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class Coleta implements Serializable {
     private Paciente paciente;
     
     @Enumerated(EnumType.STRING)
-    private ETipoMaterial tipoMaterial;
+    private ETipoMaterial tipoMaterial = ETipoMaterial.ESCARRO;
     
     @Column(nullable = false,columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataHoraColeta;
@@ -56,7 +55,8 @@ public class Coleta implements Serializable {
     private Teste testeResultadoFinal;
 
     public Coleta() {
-        this(0, new Paciente(), ETipoMaterial.ESCARRO, LocalDateTime.now(), new ArrayList<Teste>(), new Teste());
+        this.testes = new ArrayList<>();
+        this.dataHoraColeta = LocalDateTime.now();
     }
 
     public Coleta(int id, Paciente paciente, ETipoMaterial tipoMaterial, LocalDateTime dataHoraColeta, List<Teste> testes, Teste testeResultadoFinal) {

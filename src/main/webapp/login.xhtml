@@ -26,10 +26,10 @@
                 <!-- form de login -->
                 <h:form>
                     <li><h:outputLabel for="email">Prontuario</h:outputLabel></li>
-                    <li><h:inputText class="form-control" id="prontuario" value="{session.usuarioDto.prontuario}"></h:inputText> </li>
+                    <li><h:inputText class="form-control" id="prontuario" value="#{sessao.usuarioSessao.prontuario}"></h:inputText> </li>
                     <li><h:outputLabel for="email">Senha</h:outputLabel></li>
-                    <li><h:inputSecret class="form-control" id="senha"></h:inputSecret></li><br/>
-                    <li style="text-align: center;"><h:commandLink class="btn btn-outline-info" value="Entrar" action="{session.autenticaUsuario()}"></h:commandLink></li>
+                    <li><h:inputSecret class="form-control" id="senha" value="#{sessao.usuarioSessao.senha}"></h:inputSecret></li><br/>
+                    <li style="text-align: center;"><h:commandLink class="btn btn-outline-info" value="Entrar" action="#{sessao.autenticaUsuario()}"></h:commandLink></li>
                 </h:form>
             </ul>
         </nav>
@@ -39,7 +39,7 @@
             <div class="inner">
                 <h2>Na clínica Dugustin você tem</h2>
                 <h2>seus exames laboratoriais <br/>
-                    de maneira segura e rápida</h2><br/><br/>
+                    de maneira rápida e segura</h2><br/><br/>
                 <ul class="actions">
                     <li><a href="#formularioCadastro" class="button alt scrolly big">Saiba mais</a></li>
                 </ul>
