@@ -8,42 +8,98 @@
 
     <ui:define name="container">
 
-        <div class="row">
-            <div class="col-md-9">
-                <h3>Olá #{sessao.usuarioSessao.nome}</h3>
-            </div>
-            <div class="btn btn-outline-info col-md-3">
-                <h3>54</h3></br><small>testes</small>
-            </div>
+        <div>
+            <h3>
+                Olá #{sessao.usuarioSessao.nome}
+            </h3>
         </div><br/><br/>
 
+
         <h:form rendered="#{laboratorio.estadoListagem()}">
+
+            <h4>Seguem as coletas para a testagem:</h4>
+
             <p:dataTable value="#{laboratorio.coletasDto}" var="c" paginator="true" rows="10">
                 <p:column headerText="#id">
                     <h:outputText value="#{c.id}" />
                 </p:column>
-                
+
                 <p:column headerText="Data/Hora Coleta">
                     <h:outputText value="#{c.dataHoraColeta}" />
                 </p:column>
-                
-                <p:column headerText="#id">
+
+                <p:column headerText="Status coleta">
                     <h:outputText value="#{c.statusColeta}" />
                 </p:column>
-                
-               
+
+
                 <p:column headerText="Ações">
-                    <h:commandLink value="Testar" class="btn btn-primary btn-sm" action="#{laboratorio.buscarTenis(t.id)}"></h:commandLink></br>
-                    <h:commandLink rendered="#{laboratorio.sessao.ehSupervisor()}" value="Invalidar" class="btn btn-outline-danger btn-sm" action="#{laboratorio.invalidarColeta(c.id)}"></h:commandLink>
+                    <h:commandLink value="Testar" class="btn btn-primary btn-sm" action="#{laboratorio.navegarParaTestagem(c.id)}"></h:commandLink>
+                    <h:commandLink rendered="#{laboratorio.ehSupervisor()}" value="Invalidar" class="btn btn-outline-danger btn-sm" action="#{laboratorio.invalidarColeta(c.id)}"></h:commandLink>
                 </p:column>
             </p:dataTable>
+
         </h:form>
-        
+
         <h:form rendered="#{laboratorio.estadoTestagem()}">
             <!--id coleta, Data hora, Responsável Tecnico, resultado, btn salvar, btn voltar pra coletas-->
-            
-            <!-- lista de testes daquela coleta -->
-            
+
+            <div><h4> Realizar teste </h4></div>
+
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <h:outputLabel for="idColeta">id Coleta</h:outputLabel>
+                    <h:inputText class="form-control" id="idColeta" value="#{laboratorio.coleta.id}" disabled="true" />
+                </div>
+                <div class="form-group col-md-3">
+                    <h:outputLabel for="dataHoraColeta">Data Hora Coleta</h:outputLabel>
+                    <h:inputText class="form-control" id="dataHoraColeta" value="#{laboratorio.coleta.dataHoraColeta}" disabled="true" />
+                </div>
+                <div class="form-group col-md-3">
+                    <h:outputLabel for="dataHoraTeste">Data Hora Teste</h:outputLabel>
+                    <h:inputText class="form-control" id="dataHoraTeste" value="#{laboratorio.teste.dataHoraTeste}" disabled="true" />
+                </div>
+                <div class="form-group col-md-3"> 
+                    <h:outputLabel for="resTecnico">Responsável Tecnico</h:outputLabel>
+                    <h:inputText class="form-control" id="resTecnico" value="#{laboratorio.sessao.usuarioSessao.nome}" disabled="true" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <h:outputLabel for="idadeRisco">Resultado Teste</h:outputLabel>
+                <h:selectOneMenu id="idadeRisco" value="#{laboratorio.teste.resultado}" class="form-control" required="true" requiredMessage="Selecione um Resultado">
+                    <f:selectItem itemLabel="Inconclusivo" itemValue="INCONCLUSIVO" />
+                    <f:selectItem itemLabel="Inválido" itemValue="INVALIDO" />
+                    <f:selectItem itemLabel="Detectado" itemValue="DETECTADO" />
+                    <f:selectItem itemLabel="Recoleta" itemValue="RECOLETA" />
+                    <f:selectItem itemLabel="Não Detectado" itemValue="NAO_DETECTADO" />
+                </h:selectOneMenu>
+            </div>
+
+            <h:commandButton class="btn btn-primary" action="#{laboratorio.salvarTeste()}" value="Salvar" />
+
+            <hr/><br/>
+
+            <h4> Testes já realizados para esta coleta </h4>
+
+            <p:dataTable value="#{laboratorio.testesDtoDaColeta}" var="t" paginator="true" rows="10">
+                <p:column headerText="#id">
+                    <h:outputText value="#{t.id}" />
+                </p:column>
+
+                <p:column headerText="Data/Hora Coleta">
+                    <h:outputText value="#{t.dataHoraTeste}" />
+                </p:column>
+
+                <p:column headerText="Resultado">
+                    <h:outputText value="#{t.resultado}" />
+                </p:column>
+
+                <p:column headerText="Responsável Técnico">
+                    <h:outputText value="#{t.resposavelTecnico.nome}" />
+                </p:column>
+            </p:dataTable>
+
         </h:form>
 
     </ui:define>

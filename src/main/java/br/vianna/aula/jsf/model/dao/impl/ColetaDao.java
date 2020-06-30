@@ -64,8 +64,9 @@ public class ColetaDao implements IGenericsDao<Coleta, Integer> {
     }
     
     public List<ColetaDto> buscarTodasColetasDto(){
-        Query q = em.createQuery("select new br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto(c.id, c.dataHoraColeta, c.statusColeta) from Coleta c where c.statusColeta =: valida and c.statusColeta =: emanalise");
+        Query q = em.createQuery("select new br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto(c.id, c.dataHoraColeta, c.statusColeta) from Coleta c WHERE c.statusColeta =: valida or c.statusColeta =: emanalise");
         
+        //where c.statusColeta =: valida or c.statusColeta =: emanalise
         q.setParameter("valida", EStatusColeta.VALIDA);
         q.setParameter("emanalise", EStatusColeta.EM_ANALISE);
         

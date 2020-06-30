@@ -29,6 +29,12 @@ public class ProjectJsfSpringApplication implements CommandLineRunner {
         
         Usuario u = new Usuario(0, "Thiago", "2525", "123", EFuncao.ATENDENTE);
         em.persist(u);
+        
+        Usuario k = new Usuario(0, "Karol", "2626", "123", EFuncao.TECNICO);
+        em.persist(k);
+        
+        Usuario s = new Usuario(0, "Sandra", "2727", "123", EFuncao.SUPERVISOR);
+        em.persist(k);
     }
 
 }

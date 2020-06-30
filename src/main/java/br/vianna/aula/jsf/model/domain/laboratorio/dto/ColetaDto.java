@@ -6,6 +6,7 @@
 package br.vianna.aula.jsf.model.domain.laboratorio.dto;
 
 import br.vianna.aula.jsf.controller.enuns.EEstadoPgLaboratorio;
+import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
 import java.time.LocalDateTime;
 
 /**
@@ -16,16 +17,18 @@ public class ColetaDto {
     
     private int id;
     private LocalDateTime dataHoraColeta;
-    private EEstadoPgLaboratorio statusColeta = EEstadoPgLaboratorio.LISTAGEM;
+    private EStatusColeta statusColeta;
 
     public ColetaDto() {
+        this.statusColeta = EStatusColeta.VALIDA;
     }
 
-    public ColetaDto(int id, LocalDateTime dataHoraColeta) {
+    public ColetaDto(int id, LocalDateTime dataHoraColeta, EStatusColeta statusColeta) {
         this.id = id;
         this.dataHoraColeta = dataHoraColeta;
+        this.statusColeta = statusColeta;
     }
-
+   
     public int getId() {
         return id;
     }
@@ -42,15 +45,12 @@ public class ColetaDto {
         this.dataHoraColeta = dataHoraColeta;
     }
 
-    public EEstadoPgLaboratorio getStatusColeta() {
+    public EStatusColeta getStatusColeta() {
         return statusColeta;
     }
 
-    public void setStatusColeta(EEstadoPgLaboratorio statusColeta) {
+    public void setStatusColeta(EStatusColeta statusColeta) {
         this.statusColeta = statusColeta;
     }
-    
-    
-    
     
 }
