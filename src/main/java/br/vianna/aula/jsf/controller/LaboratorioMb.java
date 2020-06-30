@@ -12,6 +12,7 @@ import br.vianna.aula.jsf.model.domain.laboratorio.Coleta;
 import br.vianna.aula.jsf.model.domain.laboratorio.Teste;
 import br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto;
 import br.vianna.aula.jsf.model.domain.laboratorio.dto.TesteDto;
+import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
 import br.vianna.aula.jsf.model.domain.usuario.EFuncao;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import javax.annotation.PreDestroy;
 import javax.faces.view.ViewScoped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -72,6 +74,7 @@ public class LaboratorioMb implements Serializable{
     public String navegarParaTestagem(int id){
         this.estadoPagina = EEstadoPgLaboratorio.TESTAGEM;
         this.testesDtoDaColeta = tDao.buscarTodosTestesDtoDaColeta(id);
+        this.coleta = cDao.buscarUm(id);
         return "";
     }
     
@@ -90,6 +93,35 @@ public class LaboratorioMb implements Serializable{
     
     public boolean ehTecnico(){
         return this.sessao.getUsuarioSessao().getFuncao().equals(EFuncao.TECNICO);
+    }
+    
+    @Transactional
+    public String salvarTeste(){
+        
+        this.teste = tDao.inserir(teste);
+        switch (teste.getResultado()) {
+            case DETECTADO:
+            case NAO_DETECTADO:
+                this.coleta.setStatusColeta(EStatusColeta.COM_RESULTADO);
+                this.coleta.setTesteResultadoFinal(teste);
+                cDao.editar(coleta);
+                break;
+            case RECOLETA:
+                this.coleta.setStatusColeta(EStatusColeta.INVALIDA);
+                cDao.editar(coleta);
+                break;
+            default:
+                this.coleta.setStatusColeta(EStatusColeta.EM_ANALISE);
+                cDao.editar(coleta);
+                break;
+        }
+        
+        this.estadoPagina = EEstadoPgLaboratorio.LISTAGEM;
+        this.coletasDto = cDao.buscarTodasColetasDto();
+        this.coleta = new Coleta();
+        this.teste = new Teste();
+        return "";
+        
     }
     
     /* ----------------------------------------------*/
@@ -156,8 +188,5 @@ public class LaboratorioMb implements Serializable{
 
     public void setTeste(Teste teste) {
         this.teste = teste;
-    }
-    
-    
-    
+    }   
 }

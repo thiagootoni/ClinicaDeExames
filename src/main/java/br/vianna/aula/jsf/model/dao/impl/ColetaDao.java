@@ -7,7 +7,6 @@ package br.vianna.aula.jsf.model.dao.impl;
 
 import br.vianna.aula.jsf.model.dao.IGenericsDao;
 import br.vianna.aula.jsf.model.domain.laboratorio.Coleta;
-import br.vianna.aula.jsf.model.domain.laboratorio.Paciente;
 import br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto;
 import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
 import java.util.List;

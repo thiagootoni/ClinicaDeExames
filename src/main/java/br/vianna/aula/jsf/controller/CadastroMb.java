@@ -46,6 +46,7 @@ public class CadastroMb implements Serializable {
     public CadastroMb() {
         this.paciente = new Paciente();
         this.coleta = new Coleta();
+        this.cpfBusca = "";
     }
 
     @PostConstruct
@@ -78,7 +79,7 @@ public class CadastroMb implements Serializable {
     public String salvarPaciente() {
 
         FacesContext ct = FacesContext.getCurrentInstance();
-        pDao.inserir(paciente);
+       //pDao.inserir(paciente);
 
         try {
             pDao.inserir(paciente);
@@ -90,6 +91,8 @@ public class CadastroMb implements Serializable {
 
         ct.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso!", ""));
         this.estadoPagina = EEstadoPgCadastro.COLETA;
+        //this.paciente = new Paciente();
+        this.cpfBusca = "";
         return "";
 
     }
@@ -216,4 +219,6 @@ public class CadastroMb implements Serializable {
     public void setcDao(ColetaDao cDao) {
         this.cDao = cDao;
     }
+    
+    
 }
