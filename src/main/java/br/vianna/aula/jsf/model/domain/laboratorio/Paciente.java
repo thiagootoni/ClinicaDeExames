@@ -7,6 +7,7 @@ package br.vianna.aula.jsf.model.domain.laboratorio;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -35,9 +36,7 @@ public class Paciente implements Serializable {
     @Column(nullable = false)
     private String cpf;
     
-    @Column(nullable = false,columnDefinition = "DATE")
-    private LocalDate dataNascimento;
-    
+    @Column(nullable = false)  
     private boolean acimaDeSessentaAnos;
     
     @Column(nullable = false)
@@ -54,12 +53,11 @@ public class Paciente implements Serializable {
         this.coletas = new ArrayList<>();
     }
 
-    public Paciente(int id, String nome, String telefone, String cpf, LocalDate dataNascimento, boolean acimaDeSessentaAnos, boolean temComorbidades, boolean grupoDeRisco, boolean marcadoParaRecoleta, List<Coleta> coletas) {
+    public Paciente(int id, String nome, String telefone, String cpf, boolean acimaDeSessentaAnos, boolean temComorbidades, boolean grupoDeRisco, boolean marcadoParaRecoleta, List<Coleta> coletas) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
         this.acimaDeSessentaAnos = acimaDeSessentaAnos;
         this.temComorbidades = temComorbidades;
         this.grupoDeRisco = grupoDeRisco;
@@ -97,14 +95,6 @@ public class Paciente implements Serializable {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public boolean isAcimaDeSessentaAnos() {
@@ -147,8 +137,6 @@ public class Paciente implements Serializable {
         this.coletas = coletas;
     }
 
-    
-      
     
     
 }

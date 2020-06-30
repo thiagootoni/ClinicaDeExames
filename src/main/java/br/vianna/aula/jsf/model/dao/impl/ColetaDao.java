@@ -8,6 +8,8 @@ package br.vianna.aula.jsf.model.dao.impl;
 import br.vianna.aula.jsf.model.dao.IGenericsDao;
 import br.vianna.aula.jsf.model.domain.laboratorio.Coleta;
 import br.vianna.aula.jsf.model.domain.laboratorio.Paciente;
+import br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto;
+import br.vianna.aula.jsf.model.domain.laboratorio.enuns.EStatusColeta;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -58,6 +60,15 @@ public class ColetaDao implements IGenericsDao<Coleta, Integer> {
     @Override
     public List<Coleta> buscarTodos() {
         Query q = em.createQuery("select c from Coleta c");
+        return q.getResultList();
+    }
+    
+    public List<ColetaDto> buscarTodasColetasDto(){
+        Query q = em.createQuery("select new br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto(c.id, c.dataHoraColeta, c.statusColeta) from Coleta c where c.statusColeta =: valida and c.statusColeta =: emanalise");
+        
+        q.setParameter("valida", EStatusColeta.VALIDA);
+        q.setParameter("emanalise", EStatusColeta.EM_ANALISE);
+        
         return q.getResultList();
     }
 

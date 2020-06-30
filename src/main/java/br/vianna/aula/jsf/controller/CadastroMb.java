@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CadastroMb implements Serializable {
 
     private Paciente paciente;
-    private EEstadoPgCadastro estadoPagina;
+    private EEstadoPgCadastro estadoPagina = EEstadoPgCadastro.BUSCAR;
     private String cpfBusca;
     private Coleta coleta;
 
@@ -68,14 +68,17 @@ public class CadastroMb implements Serializable {
             this.estadoPagina = EEstadoPgCadastro.COLETA;
         } else {
             this.estadoPagina = EEstadoPgCadastro.CADASTRO;
+            this.paciente = new Paciente();
         }
 
         return "";
     }
 
+    @Transactional
     public String salvarPaciente() {
 
         FacesContext ct = FacesContext.getCurrentInstance();
+        pDao.inserir(paciente);
 
         try {
             pDao.inserir(paciente);
@@ -85,7 +88,7 @@ public class CadastroMb implements Serializable {
             return "";
         }
 
-        ct.addMessage(null, new FacesMessage("Paciente alterado com sucesso!", ""));
+        ct.addMessage(null, new FacesMessage("Paciente cadastrado com sucesso!", ""));
         this.estadoPagina = EEstadoPgCadastro.COLETA;
         return "";
 
@@ -108,14 +111,14 @@ public class CadastroMb implements Serializable {
         this.estadoPagina = EEstadoPgCadastro.COLETA;
         return "";
     }
-
+    
+    @Transactional
     public String salvarColeta() {
         FacesContext ct = FacesContext.getCurrentInstance();
 
         try {
             this.coleta.setDataHoraColeta(LocalDateTime.now());
             this.coleta.setPaciente(paciente);
-
             cDao.inserir(this.coleta);
         } catch (Exception e) {
             ct.addMessage(null, new FacesMessage("Falha ao Cadastrar Coleta!", ""));
@@ -125,6 +128,7 @@ public class CadastroMb implements Serializable {
         ct.addMessage(null, new FacesMessage("Coleta cadastrada com sucesso!", ""));
         this.paciente = new Paciente();
         this.coleta = new Coleta();
+        this.cpfBusca = "";
         this.estadoPagina = EEstadoPgCadastro.BUSCAR;
         return "";
     }
@@ -138,17 +142,24 @@ public class CadastroMb implements Serializable {
     }
 
     public boolean estadoCadastro() {
-        return this.estadoPagina.equals(EEstadoPgCadastro.CADASTRO) || this.estadoPagina.equals(EEstadoPgCadastro.EDITAR);
+        return (this.estadoPagina.equals(EEstadoPgCadastro.CADASTRO));
     }
+    
+    public boolean estadoEditar() {
+        return this.estadoPagina.equals(EEstadoPgCadastro.EDITAR);
+    }
+    
+    public boolean estadoEditarOuCadastro(){
+        return (this.estadoPagina.equals(EEstadoPgCadastro.CADASTRO) || this.estadoPagina.equals(EEstadoPgCadastro.EDITAR));
+    }
+    
 
     public String navegaPraCadastro() {
         this.estadoPagina = EEstadoPgCadastro.EDITAR;
         return "";
     }
 
-    public boolean estadoEditar() {
-        return this.estadoPagina.equals(EEstadoPgCadastro.EDITAR);
-    }
+    
 
     public Paciente getPaciente() {
         return paciente;
@@ -198,4 +209,11 @@ public class CadastroMb implements Serializable {
         this.coleta = coleta;
     }
 
+    public ColetaDao getcDao() {
+        return cDao;
+    }
+
+    public void setcDao(ColetaDao cDao) {
+        this.cDao = cDao;
+    }
 }

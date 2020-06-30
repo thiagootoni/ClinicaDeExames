@@ -4,6 +4,7 @@ import br.vianna.aula.jsf.model.dao.impl.UsuarioDao;
 import br.vianna.aula.jsf.model.domain.usuario.EFuncao;
 import br.vianna.aula.jsf.model.domain.usuario.Usuario;
 import br.vianna.aula.jsf.model.domain.usuario.dto.UsuarioSessaoDto;
+import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,10 +22,13 @@ public class ProjectJsfSpringApplication implements CommandLineRunner {
     @Autowired
     EntityManager em;
 
-    @Override
+    
     @Transactional
+    @Override    
     public void run(String... args) throws Exception {
         
+        Usuario u = new Usuario(0, "Thiago", "2525", "123", EFuncao.ATENDENTE);
+        em.persist(u);
     }
 
 }

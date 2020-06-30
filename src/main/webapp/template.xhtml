@@ -32,7 +32,12 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item"><h:commandLink class="nav-link" value="Home" rendered="#{sessao.ehFuncionarioCadastral()}" action="#{sessao.callViewCadastro()}"/></li>
                         <li class="nav-item"><h:commandLink class="nav-link" value="Home" rendered="#{sessao.ehFuncionarioTecnico()}" action="#{sessao.callViewLaboratorio()}"/></li>
-                        <li class="nav-item"><h:commandLink class="nav-link" value="menu 2" action=""/></li></ul>
+                        </ul>
+                </h:form>
+            </div>
+            <div class="navbar-nav col-md-1">
+                <h:form>
+                    <h:commandLink class="nav-link" value=" Logout " action="#{sessao.callLogout()}"/>
                 </h:form>
             </div>
         </nav>

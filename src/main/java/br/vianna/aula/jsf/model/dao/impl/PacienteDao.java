@@ -7,18 +7,18 @@ package br.vianna.aula.jsf.model.dao.impl;
 
 import br.vianna.aula.jsf.model.dao.IGenericsDao;
 import br.vianna.aula.jsf.model.domain.laboratorio.Paciente;
-import br.vianna.aula.jsf.model.domain.usuario.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import org.hibernate.EntityMode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author thiago
  */
+@Component
 public class PacienteDao implements IGenericsDao<Paciente, Integer>{
 
     @Autowired
@@ -63,7 +63,7 @@ public class PacienteDao implements IGenericsDao<Paciente, Integer>{
     public Paciente buscarPorCpf(String cpf){
         Query q = em.createQuery("select p from Paciente p where p.cpf =: cpf");
         
-        q.setParameter("id", cpf);
+        q.setParameter("cpf", cpf);
         try{
             return (Paciente) q.getSingleResult();
         }catch(NoResultException e){

@@ -8,22 +8,43 @@
 
     <ui:define name="container">
 
-        <div>
-            <h3>
-                Olá #{sessao.usuarioSessao.nome}
-            </h3>
+        <div class="row">
+            <div class="col-md-9">
+                <h3>Olá #{sessao.usuarioSessao.nome}</h3>
+            </div>
+            <div class="btn btn-outline-info col-md-3">
+                <h3>54</h3></br><small>testes</small>
+            </div>
         </div><br/><br/>
-        
-        <h:panelGroup rendered="#{home.estadoCadastro()}">
-            <!-- verifica cpf -->
-        </h:panelGroup>
 
-        <h:panelGroup rendered="#{home.estadoTecnico()}">
-            <!-- Mostrar testes disponíveis -->
-        </h:panelGroup>
+        <h:form rendered="#{laboratorio.estadoListagem()}">
+            <p:dataTable value="#{laboratorio.coletasDto}" var="c" paginator="true" rows="10">
+                <p:column headerText="#id">
+                    <h:outputText value="#{c.id}" />
+                </p:column>
+                
+                <p:column headerText="Data/Hora Coleta">
+                    <h:outputText value="#{c.dataHoraColeta}" />
+                </p:column>
+                
+                <p:column headerText="#id">
+                    <h:outputText value="#{c.statusColeta}" />
+                </p:column>
+                
+               
+                <p:column headerText="Ações">
+                    <h:commandLink value="Testar" class="btn btn-primary btn-sm" action="#{laboratorio.buscarTenis(t.id)}"></h:commandLink></br>
+                    <h:commandLink rendered="#{laboratorio.sessao.ehSupervisor()}" value="Invalidar" class="btn btn-outline-danger btn-sm" action="#{laboratorio.invalidarColeta(c.id)}"></h:commandLink>
+                </p:column>
+            </p:dataTable>
+        </h:form>
         
-        
-
+        <h:form rendered="#{laboratorio.estadoTestagem()}">
+            <!--id coleta, Data hora, Responsável Tecnico, resultado, btn salvar, btn voltar pra coletas-->
+            
+            <!-- lista de testes daquela coleta -->
+            
+        </h:form>
 
     </ui:define>
 

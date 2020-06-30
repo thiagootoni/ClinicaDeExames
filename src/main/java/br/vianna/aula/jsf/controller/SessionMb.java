@@ -75,8 +75,9 @@ public class SessionMb implements Serializable{
             this.usuarioSessao = uDao.buscarPorProntuarioESenha(prontuario, senha);
             if (usuarioSessao != null) {
                 this.usuarioSessao.setSenha("");
-                if (ehFuncionarioCadastral())
+                if (ehFuncionarioCadastral()){
                     return "cadastro?faces-redirect=true";
+                }                    
                 return "laboratorio?faces-redirect=true";
             }
             
