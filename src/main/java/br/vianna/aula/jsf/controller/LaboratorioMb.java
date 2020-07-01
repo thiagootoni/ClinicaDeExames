@@ -8,6 +8,7 @@ package br.vianna.aula.jsf.controller;
 import br.vianna.aula.jsf.controller.enuns.EEstadoPgLaboratorio;
 import br.vianna.aula.jsf.model.dao.impl.ColetaDao;
 import br.vianna.aula.jsf.model.dao.impl.TesteDao;
+import br.vianna.aula.jsf.model.dao.impl.UsuarioDao;
 import br.vianna.aula.jsf.model.domain.laboratorio.Coleta;
 import br.vianna.aula.jsf.model.domain.laboratorio.Teste;
 import br.vianna.aula.jsf.model.domain.laboratorio.dto.ColetaDto;
@@ -52,6 +53,9 @@ public class LaboratorioMb implements Serializable{
     
     @Autowired
     private TesteDao tDao;
+    
+    @Autowired
+    private UsuarioDao uDao;
 
     public LaboratorioMb() {
         this.coleta = new Coleta();
@@ -98,6 +102,8 @@ public class LaboratorioMb implements Serializable{
     @Transactional
     public String salvarTeste(){
         
+        this.teste.setColeta(coleta);
+        this.teste.setResposavelTecnico(uDao.buscarUm(sessao.getUsuarioSessao().getId()));
         this.teste = tDao.inserir(teste);
         switch (teste.getResultado()) {
             case DETECTADO:
